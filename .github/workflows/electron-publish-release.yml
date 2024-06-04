@@ -25,6 +25,9 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install ts-node
+        run : npm install -g ts-node
+
       - name: Bootstrap Electron app
         run : npm run bootstrap
 
