@@ -1,20 +1,16 @@
 name: Ulysse Organization Electron CD
 
 on:
-    workflow_dispatch:
-      inputs:
-        version:
-          description: 'Application version'
-          required: true
-          default: '1.0.0'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Application version"
+        required: true
+        default: "1.0.0"
 
 jobs:
-  release:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [windows-latest]
+  build_and_release:
+    runs-on: windows-latest
 
     steps:
       - name: Check out Git repository
@@ -26,24 +22,28 @@ jobs:
           node-version: 18.13.0
 
       - name: Install ts-node
-        run : npm install -g ts-node
+        run: npm install -g ts-node
 
       - name: Bootstrap Electron app
-        run : npm run bootstrap
+        run: npm run bootstrap
 
       - name: Build Electron app
-        run : npm run compile
-        env : 
-            APP_NAME : ${{ github.event.repository.name }}
-            APP_VERSION : ${{ github.event.inputs.version }}
+        run: npm run compile
+        env:
+          APP_NAME: ${{ github.event.repository.name }}
+          APP_VERSION: ${{ github.event.inputs.version }}
+
+      - name: Display structure of directory
+        run: ls -l electron_build
 
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v${{ github.event.inputs.version }}
-          name: Release v${{ github.event.inputs.version }}
-          draft: false
-          prerelease: false
-          files: ./electron_build/${{ github.event.repository.name }}-${{ github.event.inputs.version }}-win.zip
-     
+            tag_name: v${{ github.event.inputs.version }}
+            name: Release v${{ github.event.inputs.version }}
+            draft: false
+            prerelease: false
+            files: ./electron_build/${{ github.event.repository.name }}-${{ github.event.inputs.version }}-win.zip
+
+  

@@ -2,6 +2,8 @@ import builder from "electron-builder";
 import os from "os";
 import packageFile from "../package.json" assert { type: "json" };
 
+console.log(process.env.APP_VERSION);
+
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const { name, version, author } = packageFile;
 
