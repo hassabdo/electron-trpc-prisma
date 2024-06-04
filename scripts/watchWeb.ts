@@ -11,7 +11,7 @@ function createWebWatchServer() {
   const server = createServer({
     mode,
     customLogger: createLogger("info", { prefix: `[web]` }),
-    configFile: "renderer/vite.config.ts",
+    configFile: "app/vite.config.ts",
   });
 
   return server;

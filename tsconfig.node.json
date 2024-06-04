@@ -10,7 +10,7 @@
     "resolveJsonModule": true
   },
   "include": [
-    "renderer/vite.config.ts",
+    "app/vite.config.ts",
     "main/vite.config.ts",
     "preload/vite.config.ts",
     ".electron-vendors.cache.json"

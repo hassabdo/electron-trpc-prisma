@@ -1,32 +1,44 @@
 import builder from "electron-builder";
+import os from "os";
+import packageFile from "../package.json" assert { type: "json" };
 
-if (process.env.VITE_APP_VERSION === undefined) {
-  const now = new Date();
-  process.env.VITE_APP_VERSION = `${now.getUTCFullYear() - 2000}.${
-    now.getUTCMonth() + 1
-  }.${now.getUTCDate()}-${now.getUTCHours() * 60 + now.getUTCMinutes()}`;
-}
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+const { name, version, author } = packageFile;
+
+const isMac = os.platform() === "darwin";
+const isWindows = os.platform() === "win32";
+const isLinux = os.platform() === "linux";
+
+const now = new Date();
 
 const config: builder.Configuration = {
   directories: {
-    output: "dist",
+    output: "electron_dist",
     buildResources: "buildResources",
   },
-  files: ["main/dist/**", "preload/dist/**", "renderer/dist/**"],
+  files: ["main/dist/**", "preload/dist/**", "app/dist/**"],
   extraMetadata: {
-    version: process.env.VITE_APP_VERSION,
+    version: process.env.APP_VERSION ?? version as string,
   },
+  productName: process.env.APP_NAME ?? name as string,
+  copyright: `Copyright © ${now.getFullYear()} ${author as string}`,
+  executableName: process.env.APP_NAME ?? name as string,
   extraResources: [
     "buildResources/db.sqlite",
     "node_modules/.prisma/**/*",
     "node_modules/@prisma/client/**/*",
   ],
+  win: {
+    target: "zip"
+  },
+  linux: {
+    target: "appimage"
+  }
 };
 
 builder
   .build({
     config,
-    dir: true,
   })
   .then((result) => {
     console.log(JSON.stringify(result));

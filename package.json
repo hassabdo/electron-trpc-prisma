@@ -1,5 +1,6 @@
 {
   "name": "trpc-prisma-electron",
+  "author": "Ulysse Media",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -16,14 +17,13 @@
     "watch:desktop": "ts-node scripts/watchDesktop.ts",
     "build:main": "cd ./main && tsc && vite build",
     "build:preload": "cd ./preload && tsc && vite build",
-    "build:renderer": "cd ./renderer && tsc && vite build",
+    "build:renderer": "cd ./app && tsc && vite build",
     "db:generate": "cd ./prisma && prisma generate",
     "db:push": "cd ./prisma && prisma db push",
     "vendors:update": "cross-env ELECTRON_RUN_AS_NODE=1 electron scripts/update-electron-vendors.mjs",
     "postinstall": "npm run vendors:update && npm run db:generate"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["electron", "vite", "react", "trpc"],
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^18.7.18",

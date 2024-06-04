@@ -8,7 +8,7 @@ The tRPC over IPC code is based on [the electron-trpc package](https://github.co
 
 - Run `npm run dev`
   This starts a development watch process using `vite`.
-  It hot reloads on changes to `renderer/`
+  It hot reloads on changes to `app/`
   It reloads the web page on changes to `preload/`
   It fully reloads the Electron app on changes to `main/`
 
@@ -30,7 +30,7 @@ If you want to compile an installable executable, change `dir` to `false` in the
 The `resolve.alias` stuff in `vite.config.ts` files is needed because https://github.com/vitejs/vite/issues/6828
 
 By default, the Content-Security-Policy allows inline `<style>` tags.
-If you use a different method of applying CSS, change the relevant line in `renderer/index.html`.
+If you use a different method of applying CSS, change the relevant line in `app/index.html`.
 eg:
 
 ```html
