@@ -34,7 +34,7 @@ jobs:
           APP_VERSION: ${{ github.event.inputs.version }}
 
       - name: Display structure of directory
-        run: ls -l electron_build
+        run: ls -l electron_dist
 
       - name: Create Release
         id: create_release
@@ -44,6 +44,6 @@ jobs:
             name: Release v${{ github.event.inputs.version }}
             draft: false
             prerelease: false
-            files: ./electron_build/${{ github.event.repository.name }}-${{ github.event.inputs.version }}-win.zip
+            files: ./electron_dist/${{ github.event.repository.name }}-${{ github.event.inputs.version }}-win.zip
 
   
