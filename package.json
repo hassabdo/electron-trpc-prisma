@@ -10,7 +10,7 @@
     "bootstrap": "npm install && npm run db:push",
     "dev": "cross-env NODE_ENV=development npm run watch:desktop",
     "build": "npm run build:main & npm run build:preload & npm run build:renderer",
-    "compile": "cross-env MODE=production npm run build && cross-env NODE_ENV=production ts-node scripts/compile.ts",
+    "compile": "cross-env MODE=production npm run build && cross-env NODE_ENV=production ts-node --esm scripts/compile.ts",
     "format": "prettier -w .",
     "lint": "eslint .",
     "watch:web": "ts-node scripts/watchWeb.ts",
